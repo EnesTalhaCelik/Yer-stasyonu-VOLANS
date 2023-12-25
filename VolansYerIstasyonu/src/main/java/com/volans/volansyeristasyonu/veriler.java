@@ -6,14 +6,14 @@ public class veriler {
 
 
 
-
+// Buradaki değişkenler teknofest yarışmasında hakem yer istasyonuna göndermemiz gereken verilerdir.
     private static float jiroskopX;
     private static float jiroskopY;
     private static float jiroskopZ;
     private static float ivmeX;
     private static float ivmeY;
-    private static float ivmeZ=9.77779f; // test için bu verileri girdim
-    private static float aci = 98.85f;  // test için bu verileri girdim
+    private static float ivmeZ=9.77779f;
+    private static float aci = 98.85f;
 
 
 
@@ -38,8 +38,11 @@ public class veriler {
     private static int takimID;
 
     private static int paketSayac;
+//----------------------------------------------
 
-
+// Seri haberleşme
+    static seriHaberleşme.SerialPortConfiguration LoraSP = new seriHaberleşme.SerialPortConfiguration();
+    static seriHaberleşme.SerialPortConfiguration HYISP = new seriHaberleşme.SerialPortConfiguration();
 
 
     private static byte[] Aktarilacakveriler = new byte[78]; //Hakem bilgisayarına göndereceğimiz veriler
@@ -188,6 +191,10 @@ public class veriler {
     public static void setAktarilacakveriler(byte aktarilacakveriler,int sira) {
         Aktarilacakveriler[sira] = aktarilacakveriler;
     }
+
+
+
+    //HYI istasyonuna aktaracağımız verilerin sabit bölümlerini ekliyoruz
     public static void setAktarilacakverilerINIT() {
         Aktarilacakveriler[0] = (byte) 255;
         Aktarilacakveriler[1] = (byte) 255;
@@ -251,7 +258,7 @@ public class veriler {
         buffer.clear();
 
         // !! bu noktada kademe gps irtifa vs verilerini geçiyoruz bunlar zorlu görev kategorisinde olan değerler!!
-        // Burada sabit değerler olacak.
+        // Buralara sabit değerler koyacağız.
         sayac+=12;
 
 
@@ -292,6 +299,8 @@ public class veriler {
         bufferINT.clear();
         sayac += 1;
     }
+
+
 
 
 }
