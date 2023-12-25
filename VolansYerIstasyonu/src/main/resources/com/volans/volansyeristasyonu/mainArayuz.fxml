@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.ScrollBar?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.SplitMenuButton?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextArea?>
@@ -16,32 +14,28 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.web.WebView?>
 
-<AnchorPane prefHeight="608.0" prefWidth="990.0" style="-fx-background-color: #1a1a1a;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.volans.volansyeristasyonu.Controller1">
+<AnchorPane prefHeight="726.0" prefWidth="1089.0" style="-fx-background-color: #1a1a1a;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.volans.volansyeristasyonu.Controller1">
    <children>
       <Separator layoutX="748.8" orientation="VERTICAL" prefHeight="658.0" prefWidth="48.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="193.0" AnchorPane.topAnchor="0.0" />
       <Separator layoutX="750.8000000000001" layoutY="23.2" prefHeight="12.0" prefWidth="910.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="23.0" />
-      <TabPane prefHeight="515.0" prefWidth="772.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="218.0" AnchorPane.topAnchor="0.0">
+      <TabPane prefHeight="581.0" prefWidth="871.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="144.39999999999998" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="218.0" AnchorPane.topAnchor="0.0">
         <tabs>
           <Tab text="GPS Verisi">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="171.0" prefWidth="268.0">
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="171.0" prefWidth="871.0">
                      <children>
-                        <Text fill="WHITE" layoutX="285.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="HARITA TEST" textAlignment="CENTER" wrappingWidth="270.93670654296875" AnchorPane.leftAnchor="285.0" AnchorPane.topAnchor="116.98828125">
-                           <font>
-                              <Font size="76.0" />
-                           </font>
-                        </Text>
-                        <Button layoutX="360.0" layoutY="340.0" mnemonicParsing="false" onAction="#onTestButtonClick" prefHeight="26.0" prefWidth="118.0" text="TEST" AnchorPane.leftAnchor="360.0" AnchorPane.topAnchor="340.0" />
+                        <WebView fx:id="haritaTest" layoutY="3.0" prefHeight="546.0" prefWidth="862.0" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="3.0" />
                      </children>
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab text="Jiroskop">
+          <Tab text="Sensör Verileri">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Text fill="WHITE" layoutX="134.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EĞİM SENSÖRÜ">
+                        <Text fill="WHITE" layoutX="207.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EĞİM SENSÖRÜ">
                            <font>
                               <Font size="76.0" />
                            </font>
@@ -54,7 +48,7 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Text fill="WHITE" layoutX="115.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Paraşüt Durumu">
+                        <Text fill="WHITE" layoutX="202.0" layoutY="273.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Paraşüt Durumu">
                            <font>
                               <Font size="76.0" />
                            </font>
@@ -63,44 +57,38 @@
                   </AnchorPane>
               </content>
             </Tab>
+            <Tab text="Lora Test">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TextArea layoutX="38.0" layoutY="44.0" prefHeight="322.0" prefWidth="458.0" />
+                        <Button layoutX="545.0" layoutY="341.0" mnemonicParsing="false" text="Gönder" />
+                     </children></AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Serial Test">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
         </tabs>
       </TabPane>
       <TabPane layoutX="772.8" prefHeight="658.0" prefWidth="217.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
-          <Tab text="Lora Bağlantısı">
+          <Tab text="HYI Bağlantısı">
                <content>
                   <AnchorPane prefHeight="630.0" prefWidth="214.0" style="-fx-background-color: #1a1a1a;">
                      <children>
-                        <ScrollBar layoutX="896.0" orientation="VERTICAL" prefHeight="608.0" prefWidth="14.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                        <Label layoutX="60.0" layoutY="14.0" prefHeight="18.0" prefWidth="98.0" text="     COM PORT" textAlignment="CENTER" textFill="WHITE" AnchorPane.rightAnchor="60.79999999999998" AnchorPane.topAnchor="14.0">
+                        <Label layoutX="71.0" layoutY="14.0" prefHeight="18.0" prefWidth="79.0" text="HYI Com Port" textAlignment="CENTER" textFill="WHITE" AnchorPane.rightAnchor="69.0" AnchorPane.topAnchor="14.0">
                            <font>
                               <Font name="Arial" size="12.0" />
                            </font>
                         </Label>
-                        <SplitMenuButton layoutX="45.0" layoutY="32.0" mnemonicParsing="false" text="SplitMenuButton" AnchorPane.rightAnchor="44.599999999999994" AnchorPane.topAnchor="32.0">
-                           <items>
-                              <MenuItem mnemonicParsing="false" text="Action 1" />
-                              <MenuItem mnemonicParsing="false" text="Action 2" />
-                           </items>
-                        </SplitMenuButton>
                         <Label layoutX="60.0" layoutY="64.0" prefHeight="18.0" prefWidth="98.0" text="     BAUD RATE" textAlignment="CENTER" textFill="WHITE" AnchorPane.rightAnchor="60.79999999999998" AnchorPane.topAnchor="64.0">
                            <font>
                               <Font name="Arial" size="12.0" />
                            </font>
                         </Label>
-                        <SplitMenuButton layoutX="44.0" layoutY="82.0" mnemonicParsing="false" prefHeight="12.0" prefWidth="130.0" text="SplitMenuButton" AnchorPane.rightAnchor="44.79999999999998" AnchorPane.topAnchor="82.0">
-                           <items>
-                              <MenuItem mnemonicParsing="false" text="110" />
-                              <MenuItem mnemonicParsing="false" text="330" />
-                              <MenuItem mnemonicParsing="false" text="600" />
-                              <MenuItem mnemonicParsing="false" text="1200" />
-                              <MenuItem mnemonicParsing="false" text="2400" />
-                              <MenuItem mnemonicParsing="false" text="4800" />
-                              <MenuItem mnemonicParsing="false" text="9600" />
-                              <MenuItem mnemonicParsing="false" text="14400" />
-                              <MenuItem mnemonicParsing="false" text="19200" />
-                           </items>
-                        </SplitMenuButton>
                         <Label layoutX="60.0" layoutY="114.0" prefHeight="18.0" prefWidth="98.0" text="      DATA BITS" textAlignment="CENTER" textFill="WHITE" AnchorPane.rightAnchor="60.79999999999998" AnchorPane.topAnchor="114.0">
                            <font>
                               <Font name="Arial" size="12.0" />
@@ -116,31 +104,33 @@
                               <Font name="Arial" size="12.0" />
                            </font>
                         </Label>
-                        <Label layoutX="62.0" layoutY="268.0" text="Connection Status" textFill="WHITE" AnchorPane.rightAnchor="60.39999999999998" AnchorPane.topAnchor="268.0" />
-                        <Label layoutX="70.0" layoutY="286.0" text="Not Connected" textFill="#ff8d00" AnchorPane.rightAnchor="68.39999999999998" AnchorPane.topAnchor="286.0" />
-                        <Button layoutX="80.0" layoutY="316.0" mnemonicParsing="false" text="Connect" AnchorPane.rightAnchor="79.19999999999999" AnchorPane.topAnchor="316.0" />
-                        <Separator layoutX="4.0" layoutY="343.2" prefHeight="12.0" prefWidth="208.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="343.0" />
-                        <TextArea layoutX="44.0" layoutY="132.0" prefHeight="12.0" prefWidth="130.0" AnchorPane.rightAnchor="44.79999999999998" AnchorPane.topAnchor="132.0">
-                           <font>
-                              <Font size="8.0" />
-                           </font>
-                        </TextArea>
-                        <TextArea layoutX="44.0" layoutY="182.0" prefHeight="19.0" prefWidth="130.0" AnchorPane.rightAnchor="44.79999999999998" AnchorPane.topAnchor="182.0">
-                           <font>
-                              <Font size="8.0" />
-                           </font>
-                        </TextArea>
-                        <TextArea fx:id="PairityBits" layoutX="44.0" layoutY="234.0" prefHeight="19.0" prefWidth="130.0" AnchorPane.rightAnchor="44.79999999999998" AnchorPane.topAnchor="234.0">
-                           <font>
-                              <Font size="8.0" />
-                           </font>
-                        </TextArea>
-                        <Separator layoutX="4.0" layoutY="354.0" prefHeight="6.0" prefWidth="208.0" AnchorPane.rightAnchor="11.199999999999989" AnchorPane.topAnchor="354.0" />
+                        <Label layoutX="63.2" layoutY="266.6" text="Connection Status" textFill="WHITE" AnchorPane.rightAnchor="59.19999999999999" AnchorPane.topAnchor="266.6" />
+                        <Label layoutX="71.2" layoutY="280.6" text="Not Connected" textFill="#ff8d00" AnchorPane.rightAnchor="67.19999999999999" AnchorPane.topAnchor="280.6" />
+                        <Button fx:id="HYIBaglan" layoutX="84.0" layoutY="300.0" mnemonicParsing="false" text="Bağlan" AnchorPane.rightAnchor="83.19999999999999" AnchorPane.topAnchor="300.0" />
+                        <Separator layoutY="326.4" prefHeight="12.0" prefWidth="218.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="326.0" />
+                        <ComboBox fx:id="comboHYIPairityBits" layoutX="42.0" layoutY="234.0" onAction="#onHYIPairityBitsSelected" prefHeight="26.0" prefWidth="137.0" />
+                        <Label layoutX="73.0" layoutY="338.0" text="Lora Com Port" textFill="WHITE" />
+                        <ComboBox fx:id="comboLoraComPort" layoutX="33.0" layoutY="356.0" onAction="#onLoraPortSelected" prefHeight="26.0" prefWidth="152.0" promptText="Com Çıkışı Seçilmedi" />
+                        <Label layoutX="80.0" layoutY="384.0" text="BAUD Rate" textFill="WHITE" />
+                        <ComboBox fx:id="comboLoraBoudRate" layoutX="35.0" layoutY="402.0" onAction="#onLoraBoudRateSelected" prefWidth="150.0" />
+                        <Label layoutX="86.0" layoutY="431.0" text="Data Bits" textFill="WHITE" />
+                        <ComboBox fx:id="comboLoraDataBits" layoutX="33.0" layoutY="451.0" onAction="#onLoraDataBitsSelected" prefHeight="26.0" prefWidth="153.0" />
+                        <ComboBox fx:id="comboLoraStopBits" layoutX="33.0" layoutY="496.0" onAction="#onLoraStopBitsSelected" prefWidth="150.0" />
+                        <Label layoutX="84.0" layoutY="480.0" text="Stop Bits" textFill="WHITE" />
+                        <Label layoutX="62.0" layoutY="576.0" text="Connection Status" textFill="WHITE" />
+                        <Label layoutX="76.0" layoutY="522.0" text="Pairity Bits" textFill="WHITE" />
+                        <ComboBox fx:id="comboLoraPairityBits" layoutX="34.0" layoutY="540.0" onAction="#onLoraPairityBitsSelected" prefHeight="26.0" prefWidth="150.0" />
+                        <Label layoutX="71.0" layoutY="594.0" text="Not Connected" textFill="#ff8d00" />
+                        <Button fx:id="LoraBaglan" layoutX="85.0" layoutY="612.0" mnemonicParsing="false" text="Bağlan" />
+                        <ComboBox fx:id="comboHYIComPort" layoutX="32.0" layoutY="33.0" onAction="#onHYIPortSelected" prefHeight="26.0" prefWidth="158.0" promptText="Com Çıkışı Seçilmedi" />
+                        <ComboBox fx:id="comboHYIBoudRate" layoutX="36.0" layoutY="82.0" onAction="#onHYIBoudRateSelected" prefWidth="150.0" promptText="BOUD Rate Giriniz" />
+                        <ComboBox fx:id="comboHYIDataBits" layoutX="36.0" layoutY="133.0" onAction="#onHYIDataBitsSelected" prefWidth="150.0" />
+                        <ComboBox fx:id="comboHYIStopBits" layoutX="36.0" layoutY="182.0" onAction="#onHYIStopBitsSelected" prefWidth="150.0" />
                      </children>
                   </AnchorPane>
                </content>
             </Tab>
-          <Tab text="Sensör">
+          <Tab text="Sensör Verileri">
                <content>
                   <Pane prefHeight="624.0" prefWidth="218.0">
                      <children>
@@ -171,18 +161,13 @@
                      </children>
                   </Pane>
                </content></Tab>
-            <Tab text="Görev">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-              </content>
-            </Tab>
         </tabs>
       </TabPane>
       <ScrollPane hbarPolicy="ALWAYS" layoutY="516.0" prefHeight="146.0" prefWidth="772.0" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="-2.842170943040401E-14" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="218.0">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="991.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="871.0">
                <children>
-                  <TextArea id="log" fx:id="log" editable="false" prefHeight="222.0" prefWidth="990.0" style=": #303030;" text="--.--.---- , --.-- : Bu bir test log mesajıdır.">
+                  <TextArea id="log" fx:id="log" editable="false" prefHeight="330.0" prefWidth="871.0" style=": #303030;" AnchorPane.bottomAnchor="-130.39999999999998" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                      <font>
                         <Font name="Courier New" size="12.0" />
                      </font>
