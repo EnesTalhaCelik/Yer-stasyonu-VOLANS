@@ -10,28 +10,34 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.Image;
 
 import com.fazecast.jSerialComm.SerialPort;
-
-
 
 public class mainApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("mainArayuz.fxml"));
-        Scene scene = new Scene(root);
+
+
+        FXMLLoader fxmlLoader = new FXMLLoader(mainApplication.class.getResource("mainArayuz.fxml"));
+        Parent root = fxmlLoader.load();
+        Controller1 controller = fxmlLoader.getController();
+
+
+        stage.setScene(new Scene(root));
         stage.setTitle("Yer Istasyonu Test");
-        stage.setScene(scene);
+
         stage.show();
 
     }
 
 
-
-
     public static void main(String[] args) {
-        launch();
 
+        //System.out.println(Arrays.toString(veriler.getAktarilacakveriler()));
+
+        launch();
 
         }
 
