@@ -175,7 +175,7 @@
                         <Label layoutX="325.0" layoutY="361.0" text="İvme Y" textFill="WHITE" />
                         <Label layoutX="534.0" layoutY="370.0" text="İvme Z" textFill="WHITE" />
                         <Label layoutX="742.0" layoutY="361.0" text="Basınç" textFill="WHITE" />
-                        <Button layoutX="420.0" layoutY="456.0" mnemonicParsing="false" onAction="#roketUcurButton" text="Roket Uçur" />
+                        <Button layoutX="408.0" layoutY="453.0" mnemonicParsing="false" onAction="#roketUcurButton" text="Roket Uçur" />
                      </children>
                   </AnchorPane>
             </content>
