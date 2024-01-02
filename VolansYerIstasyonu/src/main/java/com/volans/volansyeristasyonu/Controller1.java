@@ -36,6 +36,8 @@ import javafx.util.Duration;
 
 import java.util.Arrays;
 import java.lang.Math;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 import static com.volans.volansyeristasyonu.veriler.*;
@@ -52,9 +54,15 @@ public class Controller1 {
     private SerialPort selectedPort1;
     private SerialPort selectedPort2;
 
+    XYChart.Series irtifaGraf = new XYChart.Series();
+    XYChart.Series ivmeXGraf = new XYChart.Series();
+    XYChart.Series ivmeYGraf = new XYChart.Series();
+    XYChart.Series ivmeZGraf = new XYChart.Series();
+    XYChart.Series basincGraf = new XYChart.Series();
 
     static ObservableList<Integer> boudRates;
     static ObservableList<String> portNames;
+    private static Integer counter = 0;
 
 
 
@@ -150,30 +158,111 @@ public class Controller1 {
     private float secondsElapsed = 0.0f;
     private Timeline timeline;
 
+    final int[] second = {0};
+
+    Timer timer = new Timer(true);
 
 
-        @FXML
-        protected void roketUcurButton() {
-            if (HYIbaglanDurum == 0) {
-                System.out.println("Port opened successfully.");
+    public void grafikcizdir(Integer ctr){
 
-                try (BufferedReader input = new BufferedReader(new InputStreamReader(selectedPort1.getInputStream()))) {
-                    while (true) {
-                        if (input.ready()) {
-                            String inputLine = input.readLine();
-                            float receivedFloat = Float.parseFloat(inputLine);
-                            System.out.println("Received Float: " + receivedFloat);
-                        }
-                    }
-                } catch (IOException | NumberFormatException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                System.out.println("Unable to open the port.");
-            }
 
+        irtifaGraf.getData().add(new XYChart.Data(ctr.toString(),(ctr-15)*(ctr-15)));
+        irtifaChart.getData().add(irtifaGraf);
+
+    }
+
+    TimerTask task = new TimerTask() {
+        @Override
+        public void run() {
+            // Code to be executed every second
+            counter++;
+            System.out.println("Current value: " + counter);
 
         }
+    };
+
+
+    @FXML
+        protected void roketUcurButton() {
+
+        timer.scheduleAtFixedRate(task, 0, 1000);
+        ivmeYGraf.getData().add(new XYChart.Data("0",225));
+        ivmeYGraf.getData().add(new XYChart.Data("1",196));
+        ivmeYGraf.getData().add(new XYChart.Data("2",169));
+        ivmeYGraf.getData().add(new XYChart.Data("3",144));
+        ivmeYGraf.getData().add(new XYChart.Data("3",144));
+        ivmeYGraf.getData().add(new XYChart.Data("4",121));
+        ivmeYGraf.getData().add(new XYChart.Data("5",100));
+        ivmeYGraf.getData().add(new XYChart.Data("6",81));
+        ivmeYGraf.getData().add(new XYChart.Data("7",64));
+        ivmeYGraf.getData().add(new XYChart.Data("8",49));
+        ivmeYGraf.getData().add(new XYChart.Data("9",36));
+        ivmeYGraf.getData().add(new XYChart.Data("10",25));
+        ivmeYGraf.getData().add(new XYChart.Data("11",16));
+        ivmeYGraf.getData().add(new XYChart.Data("12",9));
+        ivmeYGraf.getData().add(new XYChart.Data("13",4));
+        ivmeYGraf.getData().add(new XYChart.Data("14",1));
+        ivmeYGraf.getData().add(new XYChart.Data("15",0));
+        ivmeYGraf.getData().add(new XYChart.Data("16",-9.6));
+        ivmeYGraf.getData().add(new XYChart.Data("17",-9.6));
+        ivmeYGraf.getData().add(new XYChart.Data("18",0));
+        ivmeYGraf.getData().add(new XYChart.Data("25",0));
+
+        ivmeXGraf.getData().add(new XYChart.Data("0",0.1));
+        ivmeXGraf.getData().add(new XYChart.Data("25",0.1));
+
+        ivmeZGraf.getData().add(new XYChart.Data("0",0.1));
+        ivmeZGraf.getData().add(new XYChart.Data("25",0.1));
+
+        basincGraf.getData().add(new XYChart.Data("0",1));
+        basincGraf.getData().add(new XYChart.Data("25",0.67));
+
+        irtifaGraf.getData().add(new XYChart.Data("0",0));
+        irtifaGraf.getData().add(new XYChart.Data("1",107));
+        irtifaGraf.getData().add(new XYChart.Data("2",411));
+        irtifaGraf.getData().add(new XYChart.Data("3",880));
+        irtifaGraf.getData().add(new XYChart.Data("4",1501));
+        irtifaGraf.getData().add(new XYChart.Data("5",2239));
+        irtifaGraf.getData().add(new XYChart.Data("6",3078));
+        irtifaGraf.getData().add(new XYChart.Data("7",3997));
+        irtifaGraf.getData().add(new XYChart.Data("8",4500));
+        irtifaGraf.getData().add(new XYChart.Data("9",5900));
+        irtifaGraf.getData().add(new XYChart.Data("10",6842));
+        irtifaGraf.getData().add(new XYChart.Data("11",7800));
+        irtifaGraf.getData().add(new XYChart.Data("12",8400));
+        irtifaGraf.getData().add(new XYChart.Data("13",9000));
+        irtifaGraf.getData().add(new XYChart.Data("14",9100));
+        irtifaGraf.getData().add(new XYChart.Data("15",9150));
+        irtifaGraf.getData().add(new XYChart.Data("16",9145));
+        irtifaGraf.getData().add(new XYChart.Data("17",9130));
+        irtifaGraf.getData().add(new XYChart.Data("18",9105));
+        irtifaGraf.getData().add(new XYChart.Data("19",9070));
+        irtifaGraf.getData().add(new XYChart.Data("20",9020));
+        irtifaGraf.getData().add(new XYChart.Data("65",7000));
+
+
+
+
+        irtifaChart.getData().add(irtifaGraf);
+
+
+        ivmeYChart.getData().add(ivmeYGraf);
+        ivmeXChart.getData().add(ivmeXGraf);
+        ivmeZChart.getData().add(ivmeZGraf);
+        basncChart.getData().add(basincGraf);
+
+
+
+        ivmeYChart.getData().add(ivmeYGraf);
+
+
+        // Cancel the timer after 10 seconds
+        //timer.cancel();
+
+
+    }
+
+
 
     private ObservableList<String> getAvailablePorts() {
         ObservableList<String> portNames = FXCollections.observableArrayList();
@@ -358,11 +447,7 @@ public class Controller1 {
         }
 
     }
-    XYChart.Series irtifaGraf = new XYChart.Series();
-    XYChart.Series ivmeXGraf = new XYChart.Series();
-    XYChart.Series ivmeYGraf = new XYChart.Series();
-    XYChart.Series ivmeZGraf = new XYChart.Series();
-    XYChart.Series basincGraf = new XYChart.Series();
+
 
     //program başlatıldığında otomatik çağırılır.
 
@@ -420,6 +505,8 @@ public class Controller1 {
         veriler.setAktarilacakverilerINIT();
 
     }
+
+
 
         public static void logAppend(String i){
                 logtext = i;
