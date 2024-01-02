@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -8,13 +11,13 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
-<?import javafx.scene.web.WebView?>
 
 <AnchorPane prefHeight="726.0" prefWidth="1089.0" style="-fx-background-color: #1a1a1a;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.volans.volansyeristasyonu.Controller1">
    <children>
@@ -26,7 +29,99 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="171.0" prefWidth="871.0">
                      <children>
-                        <WebView fx:id="haritaTest" layoutY="3.0" prefHeight="546.0" prefWidth="862.0" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="3.0" />
+                        <ImageView fitHeight="518.0" fitWidth="864.0" layoutX="2.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/map.png" />
+                           </image>
+                        </ImageView>
+                        <Pane fx:id="RoketPane" layoutX="300.0" layoutY="268.0" prefHeight="46.0" prefWidth="48.0">
+                           <children>
+                              <ImageView fitHeight="51.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/0f61ba72e0e12ba59d30a50295964871.png" />
+                                 </image>
+                              </ImageView>
+                              <Label layoutX="10.0" layoutY="38.0" text="Roket">
+                                 <font>
+                                    <Font name="Calibri Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                        <Pane fx:id="GorevYukuPane" layoutX="426.0" layoutY="268.0" prefHeight="46.0" prefWidth="48.0">
+                           <children>
+                              <ImageView fitHeight="51.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/0f61ba72e0e12ba59d30a50295964871.png" />
+                                 </image>
+                              </ImageView>
+                              <Label layoutX="-5.0" layoutY="39.0" text="Görev Yükü">
+                                 <font>
+                                    <Font name="Calibri Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                        <Label layoutX="14.0" layoutY="523.0" prefHeight="18.0" prefWidth="88.0" text="Roket İrtifa (m)" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="134.0" layoutY="523.0" prefHeight="18.0" prefWidth="94.0" text="Roket Konum X" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="267.0" layoutY="523.0" prefHeight="18.0" prefWidth="94.0" text="Roket Konum Y" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="406.0" layoutY="523.0" prefHeight="18.0" prefWidth="120.0" text="Görev Yükü İrtifa (m)" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="554.0" layoutY="523.0" prefHeight="18.0" prefWidth="124.0" text="Görev Yükü Konum X" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="712.0" layoutY="523.0" prefHeight="18.0" prefWidth="124.0" text="Görev Yükü Konum Y" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="109.0" layoutY="523.0" prefHeight="18.0" prefWidth="14.0" text=" 0" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="228.0" layoutY="523.0" prefHeight="18.0" prefWidth="14.0" text=" 0" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="361.0" layoutY="523.0" prefHeight="18.0" prefWidth="14.0" text=" 0" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="533.0" layoutY="523.0" prefHeight="18.0" prefWidth="14.0" text=" 0" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="685.0" layoutY="523.0" prefHeight="18.0" prefWidth="14.0" text=" 0" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="836.0" layoutY="523.0" prefHeight="18.0" prefWidth="14.0" text=" 0" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
                      </children>
                   </AnchorPane>
             </content>
@@ -35,28 +130,56 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Text fill="WHITE" layoutX="207.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EĞİM SENSÖRÜ">
-                           <font>
-                              <Font size="76.0" />
-                           </font>
-                        </Text>
+                        <LineChart fx:id="irtifaChart" layoutX="331.0" layoutY="14.0" prefHeight="183.0" prefWidth="229.0">
+                           <xAxis>
+                              <CategoryAxis side="BOTTOM" />
+                           </xAxis>
+                           <yAxis>
+                              <NumberAxis side="LEFT" />
+                           </yAxis>
+                        </LineChart>
+                        <LineChart fx:id="ivmeXChart" layoutY="196.0" prefHeight="183.0" prefWidth="229.0">
+                           <xAxis>
+                              <CategoryAxis side="BOTTOM" />
+                           </xAxis>
+                           <yAxis>
+                              <NumberAxis side="LEFT" />
+                           </yAxis>
+                        </LineChart>
+                        <LineChart fx:id="basncChart" layoutX="627.0" layoutY="196.0" prefHeight="183.0" prefWidth="229.0">
+                           <xAxis>
+                              <CategoryAxis side="BOTTOM" />
+                           </xAxis>
+                           <yAxis>
+                              <NumberAxis side="LEFT" />
+                           </yAxis>
+                        </LineChart>
+                        <LineChart fx:id="ivmeZChart" layoutX="419.0" layoutY="196.0" prefHeight="183.0" prefWidth="229.0">
+                           <xAxis>
+                              <CategoryAxis side="BOTTOM" />
+                           </xAxis>
+                           <yAxis>
+                              <NumberAxis side="LEFT" />
+                           </yAxis>
+                        </LineChart>
+                        <LineChart fx:id="ivmeYChart" layoutX="213.0" layoutY="196.0" prefHeight="183.0" prefWidth="229.0">
+                           <xAxis>
+                              <CategoryAxis side="BOTTOM" />
+                           </xAxis>
+                           <yAxis>
+                              <NumberAxis side="LEFT" />
+                           </yAxis>
+                        </LineChart>
+                        <Label layoutX="446.0" layoutY="179.0" text="İrtifa" textFill="WHITE" />
+                        <Label layoutX="110.0" layoutY="361.0" text="İvme X" textFill="WHITE" />
+                        <Label layoutX="325.0" layoutY="361.0" text="İvme Y" textFill="WHITE" />
+                        <Label layoutX="534.0" layoutY="370.0" text="İvme Z" textFill="WHITE" />
+                        <Label layoutX="742.0" layoutY="361.0" text="Basınç" textFill="WHITE" />
+                        <Button layoutX="420.0" layoutY="456.0" mnemonicParsing="false" onAction="#roketUcurButton" text="Roket Uçur" />
                      </children>
                   </AnchorPane>
             </content>
           </Tab>
-            <Tab text="Paraşüt ve Görev Yükü">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <Text fill="WHITE" layoutX="202.0" layoutY="273.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Paraşüt Durumu">
-                           <font>
-                              <Font size="76.0" />
-                           </font>
-                        </Text>
-                     </children>
-                  </AnchorPane>
-              </content>
-            </Tab>
             <Tab text="Lora Test">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
@@ -68,7 +191,12 @@
             </Tab>
             <Tab text="Serial Test">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ComboBox fx:id="ArduinoTest" layoutX="188.0" layoutY="157.0" prefHeight="26.0" prefWidth="218.0" promptText="Arduino Fonksiyonu Seçiniz" />
+                        <Button fx:id="ArduinoButton" layoutX="482.0" layoutY="157.0" mnemonicParsing="false" onAction="#ArduinoKontrol" text="Test Et" />
+                        <Button fx:id="serialtestPortuKapat" layoutX="591.0" layoutY="157.0" mnemonicParsing="false" text="Poru Kapat" />
+                     </children></AnchorPane>
               </content>
             </Tab>
         </tabs>
@@ -106,7 +234,7 @@
                         </Label>
                         <Label layoutX="63.2" layoutY="266.6" text="Connection Status" textFill="WHITE" AnchorPane.rightAnchor="59.19999999999999" AnchorPane.topAnchor="266.6" />
                         <Label layoutX="71.2" layoutY="280.6" text="Not Connected" textFill="#ff8d00" AnchorPane.rightAnchor="67.19999999999999" AnchorPane.topAnchor="280.6" />
-                        <Button fx:id="HYIBaglan" layoutX="84.0" layoutY="300.0" mnemonicParsing="false" text="Bağlan" AnchorPane.rightAnchor="83.19999999999999" AnchorPane.topAnchor="300.0" />
+                        <Button fx:id="HYIBaglan" layoutX="84.0" layoutY="300.0" mnemonicParsing="false" onAction="#openSelectedPort" text="Bağlan" AnchorPane.rightAnchor="83.19999999999999" AnchorPane.topAnchor="300.0" />
                         <Separator layoutY="326.4" prefHeight="12.0" prefWidth="218.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="326.0" />
                         <ComboBox fx:id="comboHYIPairityBits" layoutX="42.0" layoutY="234.0" onAction="#onHYIPairityBitsSelected" prefHeight="26.0" prefWidth="137.0" />
                         <Label layoutX="73.0" layoutY="338.0" text="Lora Com Port" textFill="WHITE" />
@@ -121,8 +249,8 @@
                         <Label layoutX="76.0" layoutY="522.0" text="Pairity Bits" textFill="WHITE" />
                         <ComboBox fx:id="comboLoraPairityBits" layoutX="34.0" layoutY="540.0" onAction="#onLoraPairityBitsSelected" prefHeight="26.0" prefWidth="150.0" />
                         <Label layoutX="71.0" layoutY="594.0" text="Not Connected" textFill="#ff8d00" />
-                        <Button fx:id="LoraBaglan" layoutX="85.0" layoutY="612.0" mnemonicParsing="false" text="Bağlan" />
-                        <ComboBox fx:id="comboHYIComPort" layoutX="32.0" layoutY="33.0" onAction="#onHYIPortSelected" prefHeight="26.0" prefWidth="158.0" promptText="Com Çıkışı Seçilmedi" />
+                        <Button fx:id="LoraBaglan" layoutX="85.0" layoutY="612.0" mnemonicParsing="false" onAction="#openLoraSelectedPort" text="Bağlan" />
+                        <ComboBox fx:id="comboHYIComPort" layoutX="32.0" layoutY="33.0" onAction="#onHYIPortSelected" onMousePressed="#HYITIK" prefHeight="26.0" prefWidth="158.0" promptText="Com Çıkışı Seçilmedi" />
                         <ComboBox fx:id="comboHYIBoudRate" layoutX="36.0" layoutY="82.0" onAction="#onHYIBoudRateSelected" prefWidth="150.0" promptText="BOUD Rate Giriniz" />
                         <ComboBox fx:id="comboHYIDataBits" layoutX="36.0" layoutY="133.0" onAction="#onHYIDataBitsSelected" prefWidth="150.0" />
                         <ComboBox fx:id="comboHYIStopBits" layoutX="36.0" layoutY="182.0" onAction="#onHYIStopBitsSelected" prefWidth="150.0" />
@@ -163,18 +291,18 @@
                </content></Tab>
         </tabs>
       </TabPane>
-      <ScrollPane hbarPolicy="ALWAYS" layoutY="516.0" prefHeight="146.0" prefWidth="772.0" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="-2.842170943040401E-14" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="218.0">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="871.0">
+      <ScrollPane hbarPolicy="ALWAYS" layoutY="516.0" prefHeight="150.0" prefWidth="871.0" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="218.0">
+         <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1156.0" prefWidth="871.0">
                <children>
-                  <TextArea id="log" fx:id="log" editable="false" prefHeight="330.0" prefWidth="871.0" style=": #303030;" AnchorPane.bottomAnchor="-130.39999999999998" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                  <TextArea fx:id="log" prefHeight="1264.0" prefWidth="856.0">
                      <font>
-                        <Font name="Courier New" size="12.0" />
+                        <Font name="Cambria Bold" size="12.0" />
                      </font>
                   </TextArea>
                </children>
             </AnchorPane>
-        </content>
+         </content>
       </ScrollPane>
    </children>
 </AnchorPane>
