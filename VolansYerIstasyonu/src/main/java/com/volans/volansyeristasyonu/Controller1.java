@@ -1,36 +1,65 @@
 package com.volans.volansyeristasyonu;
 
 import com.fazecast.jSerialComm.SerialPort;
+
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.stage.Stage;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.StandardSocketOptions;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javafx.scene.web.WebView;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
+import javafx.util.Duration;
 
 import java.util.Arrays;
+import java.lang.Math;
+
 
 import static com.volans.volansyeristasyonu.veriler.*;
 
 public class Controller1 {
+
+
+
+
     private Stage stage;
     private Scene scene;
     private Parent root;
 
-
+    private SerialPort selectedPort1;
+    private SerialPort selectedPort2;
 
 
     static ObservableList<Integer> boudRates;
     static ObservableList<String> portNames;
+
+
+
+    static ObservableList<String> ArduinoListe =  FXCollections.observableArrayList("Sadece Kırmızıyı Yak","Sadece Sarıyı Yak","Sadece Maviyi Yak","Sırayla yanıp sönme","Strobe Efekti",
+                                                                                                            "Nefes Alma","Sönme","Test 1");;
 
     static ObservableList<Integer> pairityTypes = FXCollections.observableArrayList(SerialPort.NO_PARITY,SerialPort.EVEN_PARITY,SerialPort.ODD_PARITY,
                                                                                     SerialPort.MARK_PARITY,SerialPort.SPACE_PARITY);
@@ -40,9 +69,15 @@ public class Controller1 {
 
 
     @FXML
-    private WebView haritaTest;
-
+    private Button serialtestPortuKapat;
     private WebEngine engine;
+
+
+    @FXML
+    private Pane RoketPane;
+
+    @FXML
+    private Pane GorevYukuPane;
 
     @FXML
     private TextArea log;
@@ -61,6 +96,12 @@ public class Controller1 {
 
     @FXML
     private ComboBox<Integer> comboHYIPairityBits;
+
+    @FXML
+    private ComboBox<String> ArduinoTest;
+
+    @FXML
+    private Button ArduinoButton;
 
     @FXML
     private Button HYIBaglan;
@@ -83,27 +124,56 @@ public class Controller1 {
     @FXML
     private Button LoraBaglan;
 
-
-
-
+    @FXML
+    private LineChart<?,?> irtifaChart;
 
     @FXML
-    protected void onTestButtonClick() {
-        System.out.println("Test butonuna tıkladın.");
-        log.appendText("\nTest Buttonuna tıkladınız.");
-        arrayFloatToByte();
-        System.out.println(Arrays.toString(veriler.getAktarilacakveriler()));
+    private LineChart<?,?> ivmeXChart;
 
-        seriHaberleşme.SerialPortConfiguration config = new seriHaberleşme.SerialPortConfiguration();
-        config.setBaudRate(9600);
-        config.setNumDataBits(8);
-        config.setNumStopBits(1);
-        config.setParity(SerialPort.NO_PARITY);
+    @FXML
+    private LineChart<?,?> ivmeYChart;
 
-        seriHaberleşme.writeByteToSerialPort("COM12", (byte) 65, config);
+    @FXML
+    private LineChart<?,?> ivmeZChart;
 
+    @FXML
+    private LineChart<?,?> basncChart;
+    public static String logtext;
 
+    private int HYIbaglanDurum = 0;
+    private int LorabaglanDurum = 0;
+    void setPanePosition(Pane pane,float posX, float posY){
+        pane.setTranslateX(posX);
+        pane.setTranslateY(posY);
     }
+
+    private float secondsElapsed = 0.0f;
+    private Timeline timeline;
+
+
+
+        @FXML
+        protected void roketUcurButton() {
+            if (HYIbaglanDurum == 0) {
+                System.out.println("Port opened successfully.");
+
+                try (BufferedReader input = new BufferedReader(new InputStreamReader(selectedPort1.getInputStream()))) {
+                    while (true) {
+                        if (input.ready()) {
+                            String inputLine = input.readLine();
+                            float receivedFloat = Float.parseFloat(inputLine);
+                            System.out.println("Received Float: " + receivedFloat);
+                        }
+                    }
+                } catch (IOException | NumberFormatException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                System.out.println("Unable to open the port.");
+            }
+
+
+        }
 
     private ObservableList<String> getAvailablePorts() {
         ObservableList<String> portNames = FXCollections.observableArrayList();
@@ -117,12 +187,214 @@ public class Controller1 {
         return portNames;
     }
 
+
+        //Hyı İçin port açıyoruz
+    public void openSelectedPort() {
+        if(HYIbaglanDurum == 0){
+
+            String selectedPortName = comboHYIComPort.getValue();
+            if (selectedPortName == null || selectedPortName.isEmpty()) {
+                System.out.println("Lütfen bir port seçiniz");
+                return;
+            }
+
+            selectedPort1 = SerialPort.getCommPort(selectedPortName);
+            if (selectedPort1.openPort()) {
+                System.out.println("port başarıyla açıldı " + selectedPort1.getSystemPortName());
+                HYIbaglanDurum = 1;
+                HYIBaglan.setText("Portu Kapat");
+                HYISP.setPortName(selectedPort1.getSystemPortName());
+            } else {
+                System.out.println(selectedPortName + "portu açılamadı");
+            }
+        } else if (HYIbaglanDurum == 1) {
+            selectedPort1.closePort();
+            HYIbaglanDurum = 0;
+            HYIBaglan.setText("Bağlan");
+            System.out.println(selectedPort1.getSystemPortName() + "portu kapatıldı");
+        }
+
+    }
+
+    public void openLoraSelectedPort() {
+        if(LorabaglanDurum == 0){
+
+            String selectedPortName = comboLoraComPort.getValue();
+            if (selectedPortName == null || selectedPortName.isEmpty()) {
+                System.out.println("Lütfen bir port seçiniz");
+                return;
+            }
+
+            selectedPort2 = SerialPort.getCommPort(selectedPortName);
+            if (selectedPort2.openPort()) {
+                System.out.println("port başarıyla açıldı " + selectedPort2.getSystemPortName());
+                LorabaglanDurum = 1;
+                LoraBaglan.setText("Portu Kapat");
+                LoraSP.setPortName(selectedPort2.getSystemPortName());
+
+            } else {
+                System.out.println(selectedPortName + "portu açılamadı");
+            }
+        } else if (LorabaglanDurum == 1) {
+            selectedPort2.closePort();
+            LorabaglanDurum = 0;
+            LoraBaglan.setText("Bağlan");
+            System.out.println(selectedPort2.getSystemPortName() + "portu kapatıldı");
+        }
+
+    }
+
+
+
+
+    public void HYITIK (){
+        portNames = getAvailablePorts();
+        comboHYIComPort.setItems(portNames);
+
+        System.out.println("Portlar güncellendi");
+
+    }
+
+    private void sendCommandToArduino() {
+        if (selectedPort1 != null && selectedPort1.isOpen()) {
+            // Example: Send '1' to turn on LED, '0' to turn off LED
+            selectedPort1.writeBytes(new byte[]{'1'}, 1);
+            System.out.println("Command sent to Arduino.");
+        } else {
+            System.out.println("Serial port not open.");
+        }
+    }
+
+    static SerialPort sp;
+
+    public void ArduinoKontrol() throws IOException, InterruptedException {
+
+        if(HYIbaglanDurum == 1){
+
+        selectedPort1.setComPortParameters(HYISP.getBaudRate(),HYISP.getNumDataBits(),HYISP.getNumStopBits(),HYISP.getParity());
+            System.out.println("\nArduino Fonksiyonunun içine girildi ayarlar yapıldı!\n");
+            System.out.println(ArduinoTest.getSelectionModel().getSelectedItem());
+        Thread.sleep(500);
+
+        if(ArduinoTest.getSelectionModel().getSelectedItem() ==  "Sadece Kırmızıyı Yak"){
+            selectedPort1.getOutputStream().write(1);
+
+            LocalDateTime currentDateTime = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            String formattedDateTime = currentDateTime.format(formatter);
+
+
+            log.appendText("\n"+formattedDateTime+ " :: Arduinoda Kırmızı Işık Yakılıyor");
+        } else if (ArduinoTest.getSelectionModel().getSelectedItem()==  "Sadece Sarıyı Yak") {
+            selectedPort1.getOutputStream().write(2);
+
+            LocalDateTime currentDateTime = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            String formattedDateTime = currentDateTime.format(formatter);
+
+
+            log.appendText("\n"+formattedDateTime+ " :: Arduinoda Sarı ışık yakılıyor");
+        }
+        else if (ArduinoTest.getSelectionModel().getSelectedItem()==  "Sadece Maviyi Yak") {
+            selectedPort1.getOutputStream().write(3);
+
+            LocalDateTime currentDateTime = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            String formattedDateTime = currentDateTime.format(formatter);
+
+
+            log.appendText("\n"+formattedDateTime+ " :: Arduinoda Mavi Işık Yanıyor");
+        }else if (ArduinoTest.getSelectionModel().getSelectedItem()==  "Sırayla yanıp sönme") {
+            selectedPort1.getOutputStream().write(4);
+            LocalDateTime currentDateTime = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            String formattedDateTime = currentDateTime.format(formatter);
+
+
+            log.appendText("\n"+formattedDateTime+ " :: Arduinoda Sırayla Yanıp Sönme Oynatılıyor");
+
+        }else if (ArduinoTest.getSelectionModel().getSelectedItem()==  "Strobe Efekti") {
+            selectedPort1.getOutputStream().write(5);
+            LocalDateTime currentDateTime = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            String formattedDateTime = currentDateTime.format(formatter);
+
+
+            log.appendText("\n"+formattedDateTime+ " :: Arduinoda Strobe Efekti Oynatılıyor");
+
+        }
+        else if (ArduinoTest.getSelectionModel().getSelectedItem()==  "Nefes Alma") {
+            selectedPort1.getOutputStream().write(6);
+            LocalDateTime currentDateTime = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            String formattedDateTime = currentDateTime.format(formatter);
+
+
+            log.appendText("\n"+formattedDateTime+ " :: Arduinoda Nefes Alma Oynatılıyor");
+
+        }
+        else if (ArduinoTest.getSelectionModel().getSelectedItem()==  "Sönme") {
+            selectedPort1.getOutputStream().write(7);
+            LocalDateTime currentDateTime = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            String formattedDateTime = currentDateTime.format(formatter);
+
+
+            log.appendText("\n"+formattedDateTime+ " :: Arduinoda Sönme Oynatılıyor");
+
+        }
+        else if (ArduinoTest.getSelectionModel().getSelectedItem()==  "Test 1") {
+            selectedPort1.getOutputStream().write(8);
+            LocalDateTime currentDateTime = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            String formattedDateTime = currentDateTime.format(formatter);
+
+
+            log.appendText("\n" + formattedDateTime + " :: Arduinoda Test 1 Oynatılıyor");
+        }
+        }else {
+            System.out.println("Hyı Portu Kapalı");
+
+        }
+
+    }
+    XYChart.Series irtifaGraf = new XYChart.Series();
+    XYChart.Series ivmeXGraf = new XYChart.Series();
+    XYChart.Series ivmeYGraf = new XYChart.Series();
+    XYChart.Series ivmeZGraf = new XYChart.Series();
+    XYChart.Series basincGraf = new XYChart.Series();
+
     //program başlatıldığında otomatik çağırılır.
 
+    Integer a = 5;
+
+    int b = 5;
+    public void roketUcur(){
+
+
+
+        irtifaGraf.getData().add(new XYChart.Data(a.toString(),b));
+        a++;
+        b+=7 ;
+        irtifaChart.getData().add(irtifaGraf);
+
+    }
+
     public void initialize() {
+
+
+
+
+
+
+        ArduinoTest.setItems(ArduinoListe);
+
+
+
         LocalDateTime currentDateTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String formattedDateTime = currentDateTime.format(formatter);
+
         log.appendText( formattedDateTime+ " :: Bu Bir Test Mesajıdır ");
         portNames = getAvailablePorts();
         boudRates = FXCollections.observableArrayList(110, 300, 600, 1200, 2400, 4800, 9600,
@@ -142,46 +414,69 @@ public class Controller1 {
         comboLoraStopBits.setItems(stopBits);
         comboLoraPairityBits.setItems(pairityTypes);
 
-        haritaTest.getEngine().load("https://master.apis.dev.openstreetmap.org/#map=6/39.031/35.252");
+
 
 
         veriler.setAktarilacakverilerINIT();
 
     }
 
-    public void onHYIPortSelected() {
+        public static void logAppend(String i){
+                logtext = i;
+                logAppend(logtext);
 
+        }
+
+
+    public void onHYIPortSelected() {
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedDateTime = currentDateTime.format(formatter);
         String selectedPort = comboHYIComPort.getSelectionModel().getSelectedItem();
         System.out.println("Seçilen port: " + selectedPort);
+        log.appendText("\n"+formattedDateTime+ " :: HYI Bağlantı Portu : " +selectedPort);
         HYISP.setPortName(selectedPort);
+
     }
 
     public void onHYIBoudRateSelected() {
-
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedDateTime = currentDateTime.format(formatter);
         Integer selectedHYIBoudRate = comboHYIBoudRate.getSelectionModel().getSelectedItem();
         System.out.println("HYI İle kurulacak Boud Hızı " + selectedHYIBoudRate);
+        log.appendText("\n"+formattedDateTime+ " :: HYI ile kurulacak Boud Hızı : " +selectedHYIBoudRate);
         HYISP.setBaudRate(selectedHYIBoudRate);
+
     }
 
     public void onHYIDataBitsSelected() {
-
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedDateTime = currentDateTime.format(formatter);
         Integer selectedHYIDataBits = comboHYIDataBits.getSelectionModel().getSelectedItem();
         HYISP.setNumDataBits(selectedHYIDataBits);
         System.out.println("HYI veri aktaramında kıllanılaca data bit miktarı " + selectedHYIDataBits);
+        log.appendText("\n"+formattedDateTime+ " :: HYI veri aktaramında kıllanılaca data bit miktarı: " +selectedHYIDataBits);
 
     }
     public void onHYIStopBitsSelected() {
-
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedDateTime = currentDateTime.format(formatter);
         Integer selectedHYIStopBits = comboHYIStopBits.getSelectionModel().getSelectedItem();
         HYISP.setNumDataBits(selectedHYIStopBits);
         System.out.println("HYI veri aktaramında kıllanılaca stop bit miktarı " + selectedHYIStopBits);
+        log.appendText("\n"+formattedDateTime+ " :: HYI veri aktaramında kıllanılaca stop bit miktarı: " +selectedHYIStopBits);
 
     }
     public void onHYIPairityBitsSelected() {
-
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedDateTime = currentDateTime.format(formatter);
         Integer selectedHYIPairityBits = comboHYIPairityBits.getSelectionModel().getSelectedItem();
         HYISP.setParity(selectedHYIPairityBits);
-        System.out.println("HYI veri aktaramında kıllanılaca pairity metodu  " + selectedHYIPairityBits);
+        log.appendText("\n"+formattedDateTime+ " :: HYI veri aktaramında kıllanılacak pairity metodu : " +selectedHYIPairityBits);
 
     }
 
@@ -221,9 +516,5 @@ public class Controller1 {
         System.out.println("Lora veri aktaramında kıllanılaca pairity metodu  " + selectedLoraPairityBits);
 
     }
-
-
-
-
 
 }
