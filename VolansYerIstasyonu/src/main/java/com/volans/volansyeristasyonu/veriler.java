@@ -45,7 +45,7 @@ public class veriler {
     static seriHaberleşme.SerialPortConfiguration HYISP = new seriHaberleşme.SerialPortConfiguration();
 
 
-    private static byte[] Aktarilacakveriler = new byte[78]; //Hakem bilgisayarına göndereceğimiz veriler
+        private static byte[] Aktarilacakveriler = new byte[78]; //Hakem bilgisayarına göndereceğimiz veriler
 
 
     public static float getJiroskopX() {
