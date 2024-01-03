@@ -1,6 +1,8 @@
 # Yer-stasyonu-VOLANS
 
 Projede benim görevim programın GUI tasarlamak ve seri haberleşme özelliğini kodlamaktı.
+
+ 
 •Programda seçilen porta belirlenen iletişim verileriyle (baud rate , data bit , stop bit ve pairity metodu) UART protokolü kullanılarak veri aktarımı yapılabilmektedir. Seri haberleşmeyi sağlamak için kullandığım kütüphane JSerialComm kütüphanesidir. Seri haberleşmeyi test etmek uygulamanın içinde ayrı bir sekme eklenmiştir.
 
 • Programda GPS menüsü için planım www.openstreetmap.org üzerinden harita vektör dosyasını indirmek ve bu dosyayı form ekranına yansıtmaktı anca kullanmak istediğim kütüphaneler hata verdiğinden haritayı ekleyemedim. Program içinde web sayfasında harita açmaya çalıştığımda ise resimler yüklenemiyordu ve ImageView hatası alıyordum.
